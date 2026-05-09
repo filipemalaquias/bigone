@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Big One Digital | Hub de Preparação para Financiamento</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f6ff 0%, #eef2fc 100%);
+            color: #142a4b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Header / Nav - Responsivo com menu hambúrguer */
+        .navbar {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,101,255,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 0;
+        }
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0A4B8A, #1E88E5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c7be5;
+            display: block;
+        }
+        
+        /* Menu Hambúrguer */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            color: #0a66c2;
+            cursor: pointer;
+            padding: 8px;
+            transition: 0.2s;
+        }
+        .menu-toggle:hover {
+            background: rgba(10,102,194,0.1);
+            border-radius: 50%;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1a4972;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1e6ef0;
+        }
+        .btn-outline-light {
+            background: white;
+            border: 1px solid #1e6ef0;
+            color: #1e6ef0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .btn-outline-light:hover {
+            background: #1e6ef0;
+            color: white;
+        }
+
+        /* Buttons & cards */
+        .btn-primary {
+            background: linear-gradient(95deg, #0A66C2, #2196f3);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0,101,255,0.2);
+            font-size: 1rem;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(95deg, #0a5bb0, #0a7eff);
+            box-shadow: 0 12px 20px rgba(0,101,255,0.25);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            background: white;
+            border: 1px solid #bdd4ff;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #1e6ef0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:active {
+            background: #eef4ff;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 40px 0 30px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .hero-content {
+            flex: 1;
+            min-width: 280px;
+        }
+        .hero-tag {
+            background: #e3f0ff;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #0a5cb0;
+            margin-bottom: 16px;
+        }
+        .hero-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(145deg, #0a2e55, #0f6bcf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-content p {
+            font-size: 1rem;
+            margin: 20px 0;
+            color: #2c3e5c;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            min-width: 280px;
+        }
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+        }
+
+        /* sections */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #102b44;
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: #2196f3;
+            display: block;
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+        .cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin: 35px 0;
+        }
+        .card-modern {
+            background: white;
+            border-radius: 28px;
+            padding: 24px 20px;
+            flex: 1;
+            min-width: 260px;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px -5px rgba(0,0,0,0.05);
+            border: 1px solid #eaf0fa;
+        }
+        .card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0,80,200,0.12);
+            border-color: #c5e0ff;
+        }
+        .icon-large {
+            font-size: 2.2rem;
+            color: #1e88e5;
+            margin-bottom: 16px;
+        }
+        .badge-selo {
+            background: #0b5e2e20;
+            color: #0c6b3a;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        /* fluxo visual */
+        .flow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            background: white;
+            border-radius: 48px;
+            padding: 28px 20px;
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+        }
+        .step {
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        .step-number {
+            background: #0a66c2;
+            width: 42px;
+            height: 42px;
+            line-height: 42px;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 0 auto 10px;
+        }
+        .step strong {
+            font-size: 0.9rem;
+        }
+        .step p {
+            font-size: 0.75rem;
+            color: #5a6e8a;
+        }
+        
+        /* dashboard preview */
+        .dashboard-demo {
+            background: linear-gradient(125deg, #0a2e47, #0b4b6e);
+            border-radius: 32px;
+            padding: 24px 20px;
+            color: white;
+            margin: 35px 0;
+        }
+        .score-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .score-item {
+            background: rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 14px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        .score-item span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* selo */
+        .selo-area {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 20px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid #cce4ff;
+        }
+
+        footer {
+            background: #071a2b;
+            color: #b9d0f0;
+            padding: 40px 0 28px;
+            margin-top: 50px;
+            border-radius: 32px 32px 0 0;
+        }
+
+        /* BENEFÍCIOS RESPONSIVO */
+        .benefits-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .benefit-card {
+            flex: 1;
+            background: #eef4fe;
+            border-radius: 32px;
+            padding: 24px;
+            min-width: 250px;
+        }
+
+        /* CHECKLIST RESPONSIVO */
+        .checklist-container {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 20px;
+            margin: 30px 0;
+            border: 1px solid #bdd9ff;
+        }
+        .checklist-cols {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .checklist-col {
+            background: #f5f9ff;
+            border-radius: 24px;
+            padding: 16px;
+            flex: 1;
+            min-width: 220px;
+        }
+        .checklist-col ul {
+            margin-top: 8px;
+            list-style: none;
+        }
+        .checklist-col li {
+            margin: 6px 0;
+            font-size: 0.85rem;
+        }
+
+        /* ========== RESPONSIVIDADE COMPLETA PARA TELEFONES ========== */
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 24px;
+            }
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 18px;
+            }
+            
+            /* Menu hambúrguer */
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+                padding: 20px 0 15px;
+                background: white;
+                border-radius: 24px;
+                margin-top: 15px;
+                border: 1px solid #e0e8f5;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                white-space: normal;
+            }
+            .btn-outline-light {
+                width: 80%;
+                margin: 0 auto;
+                text-align: center;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 0 20px;
+            }
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+            .hero-content .btn-primary, 
+            .hero-content .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+                align-items: center;
+                border-radius: 32px;
+                padding: 20px;
+            }
+            .step {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .score-row {
+                flex-direction: column;
+            }
+            .score-item {
+                width: 100%;
+            }
+            
+            .benefits-row {
+                flex-direction: column;
+            }
+            
+            .checklist-cols {
+                flex-direction: column;
+            }
+            
+            .selo-area div[style*="display: flex"] {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px !important;
+            }
+            
+            footer > .container > div:first-child {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 14px;
+            }
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            .logo span {
+                font-size: 0.6rem;
+            }
+            .card-modern {
+                padding: 18px;
+                min-width: 100%;
+            }
+            .step-number {
+                width: 36px;
+                height: 36px;
+                line-height: 36px;
+                font-size: 1.1rem;
+            }
+            .dashboard-demo {
+                padding: 18px;
+            }
+            .score-item span {
+                font-size: 1.3rem;
+            }
+            .selo-area {
+                padding: 20px;
+            }
+            .checklist-col {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-flex">
+        <div class="logo">
+            <h1>BIG ONE DIGITAL</h1>
+            <span>Hub de Preparação para Financiamento • Angola</span>
+        </div>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#" class="active" id="navHome">Início</a>
+            <a href="#" id="navAuditoria">Auditoria</a>
+            <a href="#" id="navFinanciamento">Financiamento</a>
+            <a href="#" id="navSelo">Selo</a>
+            <a href="dashboard.html" class="btn-outline-light"><i class="fas fa-user-check"></i> Área empresa</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-tag"><i class="fas fa-chart-line"></i> PMEs angolanas & Startups</div>
+                <h2>Organize, audite e torne-se <span style="color:#1a73e8;">financiável</span></h2>
+                <p>Big One Digital é o primeiro hub que prepara PMEs para auditoria, conformidade e conexão com investidores. Pré-Bodiva, selos de confiança e acesso a capital.</p>
+                <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                    <button class="btn-primary" id="openOnboardBtn"><i class="fas fa-clipboard-list"></i> Iniciar Auditoria Grátis</button>
+                    <button class="btn-secondary" id="simularFinanciamentoHeroBtn"><i class="fas fa-chart-simple"></i> Simular Financiamento</button>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.85rem;"><i class="fas fa-check-circle" style="color:#12b981;"></i> Selo “Empresa Pronta para Investimento” • Certificação ISO/ESG</p>
+            </div>
+            <div class="hero-image">
+                <img src="img.png" alt="Ilustração plataforma moderna" style="border: 3px solid;border-radius: 20px; border-color:#1a73e8 !important;">
+            </div>
+        </div>
+
+        <!-- Blocos principais: auditoria + financiamento -->
+        <div class="cards-grid">
+            <div class="card-modern">
+                <div class="icon-large"><i class="fas fa-file-alt"></i></div>
+                <h3>Auditoria + Consultoria</h3>
+                <p>Diagnóstico financeiro, contábil e organizacional. Relatórios automáticos de conformidade (PDF/Excel) e sugestões para ser financiável.</p>
+                <div class="badge-selo"><i class="fas fa-chart-line"></i> Nota por área: Contabilidade, Fiscal, ESG</div>
+            </div>
+            <div class="card-modern">
+                <div class="icon-large"><i class="fas fa-handshake"></i></div>
+                <h3>Pré-Bodiva • Financiamento</h3>
+                <p>Hub de preparação para investimento. Empresas auditadas recebem selo e conectam-se com business angels, bancos e fundos.</p>
+                <div class="badge-selo"><i class="fas fa-chart-pie"></i> Simulador de endividamento + acesso a capital</div>
+            </div>
+            <div class="card-modern">
+                <div class="icon-large"><i class="fas fa-medal"></i></div>
+                <h3>Selo de Confiança</h3>
+                <p>“Empresa Auditada e Organizada pela Big One Digital” – Credibilidade real para bancos e investidores. Diferencial competitivo.</p>
+                <div class="badge-selo"><i class="fas fa-shield-alt"></i> Relatórios prontos para ISO, ESG, LGPD</div>
+            </div>
+        </div>
+
+        <!-- Fluxo visual plataforma -->
+        <div class="flow-steps">
+            <div class="step"><div class="step-number">1</div><strong>Cadastro</strong><p>Checklist + documentos</p></div>
+            <div class="step"><div class="step-number">2</div><strong>Auditoria Digital</strong><p>Dashboard inteligente</p></div>
+            <div class="step"><div class="step-number">3</div><strong>Relatórios Premium</strong><p>Consultoria automática</p></div>
+            <div class="step"><div class="step-number">4</div><strong>Selo Conformidade</strong><p>Empresa Financiável</p></div>
+            <div class="step"><div class="step-number">5</div><strong>Financiamento</strong><p>Conexão investidores</p></div>
+        </div>
+
+        <!-- Pré-visualização Dashboard Notas -->
+        <div class="dashboard-demo">
+            <h3 style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;"><i class="fas fa-tachometer-alt"></i> Diagnóstico inteligente (demo)</h3>
+            <div class="score-row">
+                <div class="score-item"><i class="fas fa-calculator"></i> Contabilidade<br><span>78%</span></div>
+                <div class="score-item"><i class="fas fa-landmark"></i> Fiscalidade<br><span>64%</span></div>
+                <div class="score-item"><i class="fas fa-users"></i> RH & Operações<br><span>82%</span></div>
+                <div class="score-item"><i class="fas fa-leaf"></i> ESG<br><span>55%</span></div>
+            </div>
+            <p style="margin-top: 18px; font-size: 0.9rem;"><i class="fas fa-lightbulb"></i> Dica: regularize os impostos e implemente práticas ESG para atingir selo ouro.</p>
+            <button class="btn-primary" id="baixarRelatorioDemoBtn" style="background: white; color:#0a66c2; margin-top: 12px;"><i class="fas fa-download"></i> Baixar relatório completo (PDF)</button>
+        </div>
+
+        <!-- Selo progressivo + checklist -->
+        <div class="selo-area">
+            <i class="fas fa-certificate" style="font-size: 2.8rem; color: #ffb347;"></i>
+            <h2 style="font-size: 1.6rem;">Empresa Organizada & Verificada</h2>
+            <p style="font-size: 0.9rem;">Após auditoria e validação de documentos (NIF, certidão comercial, balancetes), sua empresa recebe o Selo <strong>“Big One Digital Verified”</strong> — chave para linhas de crédito e investidores.</p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 24px 0; flex-wrap: wrap;">
+                <div><i class="fas fa-check-circle" style="color:#249B3E;"></i> Validação AGT</div>
+                <div><i class="fas fa-check-circle" style="color:#249B3E;"></i> Certidão Comercial</div>
+                <div><i class="fas fa-check-circle" style="color:#249B3E;"></i> OCR documentos</div>
+                <div><i class="fas fa-gem"></i> Nível Premium: análise humana</div>
+            </div>
+            <button class="btn-primary" id="simulateSeloBtn"><i class="fas fa-chart-simple"></i> Simular meu selo de conformidade</button>
+        </div>
+
+        <!-- Benefícios e monetização -->
+        <div class="benefits-row">
+            <div class="benefit-card">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color:#0f6bcf;"></i>
+                <h3 style="margin: 12px 0;">Monetização & Parcerias</h3>
+                <ul style="margin-top: 12px; list-style: none;">
+                    <li><i class="fas fa-check-circle" style="color:#0f6bcf;"></i> Assinatura Premium (relatórios + consultoria)</li>
+                    <li><i class="fas fa-check-circle"></i> Taxa de intermediação sobre captação</li>
+                    <li><i class="fas fa-check-circle"></i> Parceria bancos (filtro de empresas organizadas)</li>
+                    <li><i class="fas fa-check-circle"></i> Serviços extras: certificações, preparação Bodiva</li>
+                </ul>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-bullhorn" style="font-size: 2rem; color:#0f6bcf;"></i>
+                <h3 style="margin: 12px 0;">Pra quem?</h3>
+                <p>PMEs angolanas, startups em crescimento, empresas familiares e negócios que buscam certificação (ISO, ESG, LGPD). Inclui empreendedores individuais que querem se formalizar e acessar microcrédito.</p>
+                <div class="badge-selo" style="margin-top: 14px;"><i class="fas fa-store"></i> + formalização e credibilidade</div>
+            </div>
+        </div>
+        
+        <!-- onboarding / checklist modal demo -->
+        <div class="checklist-container">
+            <h3><i class="fas fa-clipboard"></i> Checklist essencial para cadastro (onboarding)</h3>
+            <p style="font-size: 0.9rem;">Forneça NIF, certidão comercial, balancete ou últimos 6 meses de faturação. Após preencher o diagnóstico, o sistema gera nota e selo progressivo.</p>
+            <div class="checklist-cols">
+                <div class="checklist-col">
+                    <i class="fas fa-building"></i> <strong>Dados Empresa</strong>
+                    <ul>
+                        <li>✓ Nome / NIF / Localização</li>
+                        <li>✓ Certidão Comercial</li>
+                        <li>✓ Licença atividade</li>
+                    </ul>
+                </div>
+                <div class="checklist-col">
+                    <i class="fas fa-chart-line"></i> <strong>Situação contábil</strong>
+                    <ul><li>✓ Último balancete</li><li>✓ Relatório de vendas</li><li>✓ Impostos pagos</li></ul>
+                </div>
+                <div class="checklist-col">
+                    <i class="fas fa-user-tie"></i> <strong>Empreendedor Individual</strong>
+                    <ul><li>✓ BI / NIF pessoal</li><li>✓ Registo de vendas informal</li><li>✓ Interesse em capacitação</li></ul>
+                </div>
+            </div>
+            <button class="btn-primary" id="demoChecklistBtn" style="margin-top: 20px;"><i class="fas fa-arrow-right"></i> Simular envio de documentos (demo)</button>
+            <div id="demoFeed" style="margin-top: 18px; font-size:0.85rem; color:#2b5e8a;"></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+            <div><h3 style="color:white;">BIG ONE DIGITAL</h3><p>Angola • Primeiro hub de preparação PME para financiamento e auditoria</p></div>
+            <div><strong>Contacto</strong><br>+244 923 456 789<br>hello@bigonedigital.ao</div>
+            <div><strong>Parcerias</strong><br>Bancos, Investidores, Associações</div>
+        </div>
+        <hr style="margin: 28px 0; border-color:#2b4a6e;">
+        <p style="text-align: center; font-size: 0.8rem;">© 2025 Big One Digital – Auditoria, Selo de confiança e Pré-Bodiva para PMEs angolanas.</p>
+    </div>
+</footer>
+
+<script>
+    // ========== MENU HAMBÚRGUER RESPONSIVO ==========
+    const menuToggleBtn = document.getElementById('menuToggleBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    if(menuToggleBtn) {
+        menuToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('show');
+        });
+    }
+    
+    // Fechar menu ao clicar em um link (mobile)
+    const allNavLinks = document.querySelectorAll('.nav-links a');
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if(window.innerWidth <= 768) {
+                navLinks.classList.remove('show');
+            }
+        });
+    });
+    
+    // Fechar menu ao clicar fora (mobile)
+    document.addEventListener('click', (event) => {
+        if(window.innerWidth <= 768) {
+            if(!navLinks.contains(event.target) && !menuToggleBtn.contains(event.target)) {
+                navLinks.classList.remove('show');
+            }
+        }
+    });
+    
+    // ========== FUNÇÕES DE DEMO E INTERATIVIDADE ==========
+    const openOnboardBtn = document.getElementById('openOnboardBtn');
+    const simulateSeloBtn = document.getElementById('simulateSeloBtn');
+    const demoChecklistBtn = document.getElementById('demoChecklistBtn');
+    const demoFeed = document.getElementById('demoFeed');
+    const simularFinanciamentoHeroBtn = document.getElementById('simularFinanciamentoHeroBtn');
+    const baixarRelatorioDemoBtn = document.getElementById('baixarRelatorioDemoBtn');
+    const areaEmpresaBtn = document.getElementById('areaEmpresaBtn');
+
+    function showMessage(msg, isSuccess = true) {
+        if(demoFeed) {
+            demoFeed.innerHTML = `<div style="background: ${isSuccess ? '#dcfce7' : '#ffe6e6'}; padding: 12px; border-radius: 28px; font-size:0.85rem;"><i class="fas ${isSuccess ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i> ${msg}</div>`;
+            setTimeout(() => {
+                if(demoFeed) demoFeed.innerHTML = '';
+            }, 4000);
+        } else {
+            alert(msg);
+        }
+    }
+
+    if(openOnboardBtn) {
+        openOnboardBtn.addEventListener('click', () => {
+            showMessage('📋 Iniciando cadastro (checklist): Preencha NIF, documentação legal e balancete. O sistema fará validação via OCR e cruzamento com AGT (demo). Sua empresa receberá diagnóstico em tempo real.', true);
+        });
+    }
+
+    if(simulateSeloBtn) {
+        simulateSeloBtn.addEventListener('click', () => {
+            showMessage('🏅 Após análise automática: Sua empresa atingiu 74% de conformidade. Para selo “Empresa Pronta para Investimento”, melhore a pontuação fiscal e apresente comprovativos verificados. Em breve conexão com investidores!', true);
+        });
+    }
+
+    if(demoChecklistBtn) {
+        demoChecklistBtn.addEventListener('click', () => {
+            showMessage('✅ Documentos simulados enviados: NIF validado (AGT), Certidão Comercial ok. Balancete recebido. Sistema gerou relatório preliminar: nota geral 68% - Ações recomendadas: regularizar declarações trimestrais. Acesso ao selo básico “Empresa Organizada” disponível.', true);
+            const dashboardDemo = document.querySelector('.dashboard-demo');
+            if(dashboardDemo) {
+                dashboardDemo.style.transition = '0.3s';
+                dashboardDemo.style.boxShadow = '0 0 0 2px #2196f3';
+                setTimeout(() => { dashboardDemo.style.boxShadow = ''; }, 1000);
+            }
+        });
+    }
+
+    if(simularFinanciamentoHeroBtn) {
+        simularFinanciamentoHeroBtn.addEventListener('click', () => {
+            showMessage('📊 Simulador de crédito: sua empresa tem capacidade de endividamento até 3.2M Kz. Taxa sugerida 14% a.a. Parceiros: Banco Sol, Keve, Fundo Activo. Conecte após selo premium.', true);
+        });
+    }
+
+    if(baixarRelatorioDemoBtn) {
+        baixarRelatorioDemoBtn.addEventListener('click', () => {
+            showMessage('📄 Relatório PDF gerado! Inclui diagnóstico financeiro, notas por área e recomendações personalizadas.', true);
+        });
+    }
+
+    if(areaEmpresaBtn) {
+        areaEmpresaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showMessage('🔐 Área da empresa em desenvolvimento. Em breve você poderá acessar seu dashboard completo com todos os módulos!', true);
+        });
+    }
+
+    // Navegação smooth para seções (simulada)
+    const navHome = document.getElementById('navHome');
+    const navAuditoria = document.getElementById('navAuditoria');
+    const navFinanciamento = document.getElementById('navFinanciamento');
+    const navSelo = document.getElementById('navSelo');
+    
+    if(navHome) navHome.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); showMessage('🏠 Bem-vindo à Big One Digital! Explore nossas soluções.', true); });
+    if(navAuditoria) navAuditoria.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('.cards-grid')?.scrollIntoView({behavior: 'smooth'}); showMessage('📊 Módulo de Auditoria: Diagnóstico financeiro, contábil e organizacional.', true); });
+    if(navFinanciamento) navFinanciamento.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('.benefits-row')?.scrollIntoView({behavior: 'smooth'}); showMessage('💰 Financiamento: Simule crédito e conecte-se com investidores parceiros.', true); });
+    if(navSelo) navSelo.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('.selo-area')?.scrollIntoView({behavior: 'smooth'}); showMessage('🏅 Selo de Confiança: Diferencial competitivo para bancos e investidores.', true); });
+
+    // Efeito nos badges
+    const selos = document.querySelectorAll('.badge-selo');
+    selos.forEach(s => {
+        s.style.cursor = 'pointer';
+        s.addEventListener('click', () => showMessage('🌟 Selo de Confiança: garante credibilidade perante bancos e business angels. Acumule pontos com conformidade contínua.', true));
+    });
+    
+    console.log('Big One Digital - Totalmente responsivo para telemóveis!');
+</script>
+</body>
+</html>

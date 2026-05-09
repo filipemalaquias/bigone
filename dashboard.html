@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Big One Digital | Dashboard - Marketplace de Projetos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4fa;
+            color: #1a2c3e;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0a2e4d 0%, #0b3b5e 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 28px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #8bcbff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .sidebar-header p {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0 16px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            color: #d1e3f5;
+            text-decoration: none;
+            border-radius: 14px;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu a i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(33,150,243,0.25);
+            color: white;
+            border-left: 3px solid #2196f3;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 24px 32px;
+            transition: all 0.3s;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 16px 28px;
+            border-radius: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #e8edf5;
+        }
+
+        .page-title h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0a2e4d;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #2196f3, #0a66c2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #eef2f8;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+
+        .progress-container {
+            background: #e9eef4;
+            border-radius: 12px;
+            height: 8px;
+            margin: 12px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #2196f3, #64b5f6);
+            border-radius: 12px;
+            height: 100%;
+            width: 0%;
+        }
+
+        .badge-selo {
+            background: #e3f2fd;
+            color: #0a66c2;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #0A66C2, #2196f3);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #c5d9f0;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #1e6ef0;
+            cursor: pointer;
+        }
+
+        .btn-success {
+            background: #10b981;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 1px solid #dce5f0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .section.active-section {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Projetos / Marketplace */
+        .projeto-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e8edf5;
+            transition: 0.2s;
+        }
+        .projeto-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .projeto-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .projeto-tipo {
+            background: #e3f2fd;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .valor-solicitado {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a66c2;
+        }
+        .investir-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .menu-toggle-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -280px;
+                position: fixed;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .menu-toggle-btn {
+                display: block;
+            }
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            color: #6c86a3;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>BIG ONE DIGITAL</h2>
+            <p>Hub de Preparação para Financiamento</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" data-section="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#" data-section="auditoria"><i class="fas fa-chart-line"></i> Auditoria + Consultoria</a></li>
+            <li><a href="#" data-section="financiamento"><i class="fas fa-handshake"></i> Financiamento (Pré-Bodiva)</a></li>
+            <li><a href="#" data-section="marketplace"><i class="fas fa-store"></i> Marketplace de Projetos</a></li>
+            <li><a href="#" data-section="meusprojetos"><i class="fas fa-rocket"></i> Meus Projetos</a></li>
+            <li><a href="#" data-section="selo"><i class="fas fa-medal"></i> Selo de Conformidade</a></li>
+            <li><a href="#" data-section="checklist"><i class="fas fa-clipboard-list"></i> Checklist / Onboarding</a></li>
+            <li><a href="#" data-section="investidores"><i class="fas fa-users"></i> Área do Investidor</a></li>
+            <li><a href="#" data-section="certificacoes"><i class="fas fa-leaf"></i> Certificações</a></li>
+            <li><a href="#" data-section="relatorios"><i class="fas fa-file-pdf"></i> Relatórios</a></li>
+            <li><a href="#" data-section="configuracoes"><i class="fas fa-cog"></i> Configurações</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button class="menu-toggle-btn" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
+                <div class="page-title"><h1 id="pageTitle">Dashboard Executivo</h1></div>
+            </div>
+            <div class="user-info">
+                <span><i class="fas fa-bell"></i></span>
+                <div class="user-avatar">PME</div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard-section" class="section active-section">
+            <div class="cards-grid">
+                <div class="card"><i class="fas fa-chart-simple" style="font-size: 2rem; color:#2196f3;"></i><h3>Score Geral</h3><span style="font-size: 2rem; font-weight: 800;">68<span style="font-size:1rem;">%</span></span><div class="progress-container"><div class="progress-fill" style="width:68%"></div></div><p>Evolução +8% este mês</p></div>
+                <div class="card"><i class="fas fa-hand-holding-usd"></i><h3>Capacidade Endividamento</h3><span style="font-size: 1.8rem; font-weight: 700;">3.2M Kz</span><p>Disponível para crédito</p></div>
+                <div class="card"><i class="fas fa-file-signature"></i><h3>Documentos Validados</h3><span style="font-size: 1.8rem;">6/9</span><div class="progress-container"><div class="progress-fill" style="width:66%"></div></div></div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-chart-pie"></i> Notas por Área</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 15px;">
+                    <div>Contabilidade: 72%<div class="progress-container"><div class="progress-fill" style="width:72%"></div></div></div>
+                    <div>Fiscalidade: 58%<div class="progress-container"><div class="progress-fill" style="width:58%"></div></div></div>
+                    <div>Gestão: 65%<div class="progress-container"><div class="progress-fill" style="width:65%"></div></div></div>
+                    <div>ESG: 54%<div class="progress-container"><div class="progress-fill" style="width:54%"></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDITORIA -->
+        <div id="auditoria-section" class="section">
+            <h2>Auditoria Digital + Consultoria</h2>
+            <div class="card">
+                <div class="form-group"><input type="text" id="empresaNome" placeholder="Nome da Empresa / NIF"></div>
+                <button class="btn-primary" id="iniciarAuditoriaBtn"><i class="fas fa-microphone-alt"></i> Iniciar Auditoria</button>
+                <div id="auditoriaResultado" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- FINANCIAMENTO -->
+        <div id="financiamento-section" class="section">
+            <h2>Pré-Bodiva | Acesso a Capital</h2>
+            <div class="card">
+                <div class="form-group"><input type="number" id="valorDesejado" placeholder="Valor desejado (Kz)"></div>
+                <div class="form-group"><input type="number" id="faturamentoMensal" placeholder="Faturamento mensal (Kz)"></div>
+                <div class="form-group"><input type="number" id="despesasFixas" placeholder="Despesas fixas"></div>
+                <button class="btn-primary" id="simularFinanciamentoBtn">Calcular Capacidade</button>
+                <div id="resultadoFinanciamento" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- MARKETPLACE DE PROJETOS (NOVO) -->
+        <div id="marketplace-section" class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <h2>🚀 Marketplace de Projetos</h2>
+                <button class="btn-primary" id="abrirModalProjetoBtn"><i class="fas fa-plus"></i> Postar Novo Projeto</button>
+            </div>
+            <p style="margin-bottom: 20px;">Startups, PMEs e empreendedores individuais divulgam seus projetos. Investidores podem visualizar e fazer propostas.</p>
+            <div id="listaProjetos" class="cards-grid" style="grid-template-columns: 1fr;">
+                <!-- Projetos serão carregados via JS -->
+            </div>
+        </div>
+
+        <!-- MEUS PROJETOS -->
+        <div id="meusprojetos-section" class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <h2>📌 Meus Projetos Postados</h2>
+                <button class="btn-secondary" id="recarregarMeusProjetosBtn"><i class="fas fa-sync"></i> Atualizar</button>
+            </div>
+            <div id="listaMeusProjetos"></div>
+        </div>
+
+        <!-- SELO -->
+        <div id="selo-section" class="section">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-certificate" style="font-size: 3rem; color: #ffb347;"></i>
+                <h2>Selo Progressivo</h2>
+                <div class="progress-container"><div class="progress-fill" id="seloProgress" style="width: 54%;"></div></div>
+                <p id="nivelSelo">Nível: Bronze (54%)</p>
+                <button class="btn-primary" id="simularEnvioDocsBtn">Simular Envio de Documentos</button>
+            </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div id="checklist-section" class="section">
+            <h2>Checklist Essencial</h2>
+            <div class="card">
+                <label><input type="checkbox" id="chkNIF"> NIF + Comprovativo</label><br>
+                <label><input type="checkbox" id="chkCertidao"> Certidão Comercial</label><br>
+                <label><input type="checkbox" id="chkBalancete"> Balancete</label><br>
+                <button class="btn-primary" id="validarChecklistBtn">Validar</button>
+                <div id="checklistResultado" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+
+        <!-- INVESTIDORES -->
+        <div id="investidores-section" class="section">
+            <h2>Área do Investidor</h2>
+            <p>Empresas auditadas e projetos disponíveis para investimento:</p>
+            <div id="listaParaInvestidores"></div>
+        </div>
+
+        <!-- CERTIFICAÇÕES -->
+        <div id="certificacoes-section" class="section">
+            <h2>Certificações ESG, ISO, LGPD</h2>
+            <div class="cards-grid">
+                <div class="card"><i class="fas fa-leaf"></i><h3>ESG</h3><button class="btn-secondary">Simular Diagnóstico</button></div>
+                <div class="card"><i class="fas fa-shield-alt"></i><h3>ISO 9001</h3><button class="btn-secondary">Obter Checklist</button></div>
+            </div>
+        </div>
+
+        <!-- RELATÓRIOS -->
+        <div id="relatorios-section" class="section">
+            <h2>Relatórios</h2>
+            <div class="card"><button class="btn-primary" id="baixarRelatorioBtn"><i class="fas fa-download"></i> Baixar Relatório Completo (PDF)</button></div>
+        </div>
+
+        <!-- CONFIGURAÇÕES -->
+        <div id="configuracoes-section" class="section">
+            <h2>Configurações</h2>
+            <div class="card"><button class="btn-primary">Salvar Preferências</button></div>
+        </div>
+
+        <footer>© 2025 Big One Digital Angola | Marketplace de Projetos • Auditoria • Selo • Pré-Bodiva</footer>
+    </main>
+</div>
+
+<!-- MODAL PARA POSTAR PROJETO -->
+<div id="modalProjeto" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; max-width: 500px; width: 90%; border-radius: 32px; padding: 28px; margin: auto;">
+        <h3>📢 Postar Novo Projeto</h3>
+        <div class="form-group"><input type="text" id="projTitulo" placeholder="Título do Projeto"></div>
+        <div class="form-group"><textarea id="projDescricao" rows="3" placeholder="Descrição do projeto, objetivo, tração atual..."></textarea></div>
+        <div class="form-group"><input type="text" id="projValor" placeholder="Valor pretendido (ex: 5.000.000 Kz)"></div>
+        <div class="form-group">
+            <select id="projTipo">
+                <option value="Startup">Startup</option>
+                <option value="PME">Pequena/Média Empresa</option>
+                <option value="Empreendedor Individual">Empreendedor Individual</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button class="btn-secondary" id="fecharModalBtn">Cancelar</button>
+            <button class="btn-primary" id="salvarProjetoBtn">Publicar Projeto</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // SIDEBAR MOBILE
+    const sidebar = document.getElementById('sidebar');
+    const mobileToggle = document.getElementById('mobileMenuToggle');
+    mobileToggle?.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+    // NAVEGAÇÃO
+    const sections = {
+        dashboard: document.getElementById('dashboard-section'),
+        auditoria: document.getElementById('auditoria-section'),
+        financiamento: document.getElementById('financiamento-section'),
+        marketplace: document.getElementById('marketplace-section'),
+        meusprojetos: document.getElementById('meusprojetos-section'),
+        selo: document.getElementById('selo-section'),
+        checklist: document.getElementById('checklist-section'),
+        investidores: document.getElementById('investidores-section'),
+        certificacoes: document.getElementById('certificacoes-section'),
+        relatorios: document.getElementById('relatorios-section'),
+        configuracoes: document.getElementById('configuracoes-section')
+    };
+
+    const pageTitle = document.getElementById('pageTitle');
+    const titles = {
+        dashboard: 'Dashboard Executivo', auditoria: 'Auditoria + Consultoria',
+        financiamento: 'Financiamento (Pré-Bodiva)', marketplace: 'Marketplace de Projetos',
+        meusprojetos: 'Meus Projetos', selo: 'Selo de Conformidade',
+        checklist: 'Checklist / Onboarding', investidores: 'Área do Investidor',
+        certificacoes: 'Certificações', relatorios: 'Relatórios', configuracoes: 'Configurações'
+    };
+
+    function activateSection(sectionId) {
+        Object.values(sections).forEach(s => s?.classList.remove('active-section'));
+        if(sections[sectionId]) sections[sectionId].classList.add('active-section');
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.classList.remove('active');
+            if(link.getAttribute('data-section') === sectionId) link.classList.add('active');
+        });
+        if(titles[sectionId]) pageTitle.innerText = titles[sectionId];
+        if(window.innerWidth <= 768) sidebar.classList.remove('open');
+    }
+
+    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.getAttribute('data-section');
+            if(section && sections[section]) activateSection(section);
+        });
+    });
+
+    // ==================== MARKETPLACE DE PROJETOS - STORAGE ====================
+    let projetos = JSON.parse(localStorage.getItem('bigone_projetos')) || [];
+
+    // Projetos iniciais para demonstração
+    if(projetos.length === 0) {
+        projetos = [
+            { id: 1, titulo: "App de Entregas Rápidas", descricao: "Startup de logística para entregas em Luanda. Já temos 500 clientes piloto.", valor: "8.500.000 Kz", tipo: "Startup", data: "2025-01-15", status: "ativo" },
+            { id: 2, titulo: "AgroTech Angola", descricao: "Solução de irrigação inteligente para pequenos agricultores. Buscamos expansão.", valor: "12.000.000 Kz", tipo: "PME", data: "2025-01-20", status: "ativo" },
+            { id: 3, titulo: "Moda Sustentável", descricao: "Marca de roupas ecológicas feitas por artesãos locais.", valor: "3.200.000 Kz", tipo: "Empreendedor Individual", data: "2025-01-25", status: "ativo" }
+        ];
+        localStorage.setItem('bigone_projetos', JSON.stringify(projetos));
+    }
+
+    function renderizarMarketplace() {
+        const container = document.getElementById('listaProjetos');
+        if(!container) return;
+        const ativos = projetos.filter(p => p.status === 'ativo');
+        if(ativos.length === 0) {
+            container.innerHTML = '<div class="card">Nenhum projeto disponível no momento. Seja o primeiro a postar!</div>';
+            return;
+        }
+        container.innerHTML = ativos.map(proj => `
+            <div class="projeto-card">
+                <div class="projeto-header">
+                    <div><strong>${proj.titulo}</strong> <span class="projeto-tipo">${proj.tipo}</span></div>
+                    <div class="valor-solicitado">${proj.valor}</div>
+                </div>
+                <p style="margin: 12px 0; color: #4a627a;">${proj.descricao}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <span><i class="fas fa-calendar"></i> Postado: ${proj.data}</span>
+                    <button class="investir-btn" data-id="${proj.id}"><i class="fas fa-hand-holding-usd"></i> Tenho Interesse</button>
+                </div>
+            </div>
+        `).join('');
+        // Eventos dos botões de investir
+        document.querySelectorAll('.investir-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                alert(`✅ Interesse registrado! O investidor será contactado em breve para o projeto ID ${id}. Um gestor entrará em contato.`);
+            });
+        });
+    }
+
+    function renderizarMeusProjetos() {
+        const container = document.getElementById('listaMeusProjetos');
+        if(!container) return;
+        if(projetos.length === 0) {
+            container.innerHTML = '<div class="card">Você ainda não postou nenhum projeto. Clique em "Postar Novo Projeto".</div>';
+            return;
+        }
+        container.innerHTML = projetos.map(proj => `
+            <div class="projeto-card">
+                <div class="projeto-header"><strong>${proj.titulo}</strong><span class="projeto-tipo">${proj.tipo}</span></div>
+                <p>${proj.descricao}</p>
+                <p><strong>Valor:</strong> ${proj.valor} | <strong>Status:</strong> ${proj.status === 'ativo' ? '📢 Ativo no marketplace' : '🔒 Rascunho'}</p>
+                <button class="btn-secondary" style="margin-top: 8px;" onclick="removerProjeto(${proj.id})"><i class="fas fa-trash"></i> Remover</button>
+            </div>
+        `).join('');
+    }
+
+    function renderizarParaInvestidores() {
+        const container = document.getElementById('listaParaInvestidores');
+        if(!container) return;
+        const ativos = projetos.filter(p => p.status === 'ativo');
+        if(ativos.length === 0) {
+            container.innerHTML = '<div class="card">Aguardando novos projetos...</div>';
+            return;
+        }
+        container.innerHTML = ativos.map(proj => `
+            <div class="projeto-card">
+                <div><strong>${proj.titulo}</strong> - ${proj.tipo}</div>
+                <p>${proj.descricao.substring(0, 100)}...</p>
+                <div>💰 ${proj.valor}</div>
+                <button class="btn-success" style="margin-top: 8px;" onclick="alert('Solicitação enviada. O empreendedor receberá seu contato.')"><i class="fas fa-chart-line"></i> Manifestar Interesse</button>
+            </div>
+        `).join('');
+    }
+
+    window.removerProjeto = function(id) {
+        projetos = projetos.filter(p => p.id !== id);
+        localStorage.setItem('bigone_projetos', JSON.stringify(projetos));
+        renderizarMeusProjetos();
+        renderizarMarketplace();
+        renderizarParaInvestidores();
+        alert('Projeto removido com sucesso.');
+    };
+
+    // MODAL
+    const modal = document.getElementById('modalProjeto');
+    document.getElementById('abrirModalProjetoBtn')?.addEventListener('click', () => modal.style.display = 'flex');
+    document.getElementById('fecharModalBtn')?.addEventListener('click', () => modal.style.display = 'none');
+    document.getElementById('salvarProjetoBtn')?.addEventListener('click', () => {
+        const titulo = document.getElementById('projTitulo').value.trim();
+        const descricao = document.getElementById('projDescricao').value.trim();
+        const valor = document.getElementById('projValor').value.trim();
+        const tipo = document.getElementById('projTipo').value;
+        if(!titulo || !descricao || !valor) {
+            alert('Preencha todos os campos do projeto.');
+            return;
+        }
+        const novoProjeto = {
+            id: Date.now(),
+            titulo, descricao, valor, tipo,
+            data: new Date().toISOString().split('T')[0],
+            status: 'ativo'
+        };
+        projetos.push(novoProjeto);
+        localStorage.setItem('bigone_projetos', JSON.stringify(projetos));
+        renderizarMarketplace();
+        renderizarMeusProjetos();
+        renderizarParaInvestidores();
+        modal.style.display = 'none';
+        document.getElementById('projTitulo').value = '';
+        document.getElementById('projDescricao').value = '';
+        document.getElementById('projValor').value = '';
+        alert('✅ Projeto publicado com sucesso! Agora investidores podem visualizar.');
+        activateSection('marketplace');
+    });
+
+    // Recarregar meus projetos
+    document.getElementById('recarregarMeusProjetosBtn')?.addEventListener('click', () => renderizarMeusProjetos());
+
+    // Outras funções auxiliares
+    document.getElementById('iniciarAuditoriaBtn')?.addEventListener('click', () => {
+        document.getElementById('auditoriaResultado').innerHTML = '<div style="background:#eef4ff; padding:15px; border-radius:20px;">✅ Auditoria concluída: Score 71%. Recomendamos melhorias fiscais.</div>';
+    });
+    document.getElementById('simularFinanciamentoBtn')?.addEventListener('click', () => {
+        document.getElementById('resultadoFinanciamento').innerHTML = '<div style="background:#eef4ff; padding:15px; border-radius:20px;">💰 Capacidade estimada: 2.8M Kz. Parceiros disponíveis.</div>';
+    });
+    let seloPercent = 54;
+    document.getElementById('simularEnvioDocsBtn')?.addEventListener('click', () => {
+        seloPercent = Math.min(96, seloPercent + 15);
+        document.getElementById('seloProgress').style.width = seloPercent + '%';
+        document.getElementById('nivelSelo').innerText = seloPercent >= 85 ? 'Nível: Ouro' : (seloPercent>=65 ? 'Prata' : 'Bronze');
+        alert('Documentos enviados! Selo atualizado.');
+    });
+    document.getElementById('validarChecklistBtn')?.addEventListener('click', () => {
+        document.getElementById('checklistResultado').innerHTML = '✅ Checklist validado: 3/3 documentos essenciais.';
+    });
+    document.getElementById('baixarRelatorioBtn')?.addEventListener('click', () => alert('Relatório PDF gerado com sucesso!'));
+
+    // Inicializar todas as listas
+    renderizarMarketplace();
+    renderizarMeusProjetos();
+    renderizarParaInvestidores();
+
+    // Fechar modal clicando fora
+    window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+</script>
+</body>
+</html>
